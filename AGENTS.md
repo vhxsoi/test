@@ -12,6 +12,7 @@ Read README.md, docs/requirements.md, and docs/architecture.md before changing d
 - Keep secrets, actual company data, databases and backups out of Git. Never print API keys or source documents in logs. Maintain TLS verification.
 - The server remains bound to 127.0.0.1. Preserve Host/Origin checks, request authentication and CSP.
 - Preserve existing user data and browser storage keys during migrations. No silent sample-data overwrite or destructive database reset.
-- config/worknote.defaults.json and database/migrations describe the local-backend target; do not claim those are applied to the current browser-storage UI.
+- React UI lives in frontend/, Node.js handles local HTTP and GPT in server.js/lib/, and Python owns domain validation and SQLite persistence in backend/. Python is the authoritative source for stored work deadlines.
+- SQLite is active. Keep the DB outside the checkout; browser storage is an explicit, non-destructive migration source. config/worknote.defaults.json documents defaults but is not a runtime configuration loader.
 - Use npm ci and npm run verify. For UI changes, exercise meaningful browser flows and mobile layout; distinguish real API calls from mocked responses.
-- Do not add Gmail or real Notion synchronization until the user asks. Avoid unrelated framework migrations.
+- Do not add Gmail or real Notion synchronization until the user asks. Keep the user-requested Python + React + SQLite + Node.js stack.

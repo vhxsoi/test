@@ -11,6 +11,9 @@ Push-Location $worknoteRoot
 try {
     $worknoteNodeVersion = & node --version
     if ($worknoteNodeVersion -notmatch '^v24\.' -or [version]($worknoteNodeVersion.TrimStart('v')) -lt [version]'24.19.0') { throw 'Node.js 24.19.0 or later in the 24.x series is required.' }
+    $worknotePython = if ($env:WORKNOTE_PYTHON) { $env:WORKNOTE_PYTHON } else { 'python' }
+    & $worknotePython -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)'
+    if ($LASTEXITCODE -ne 0) { throw 'Python 3.10 or later is required. Check WORKNOTE_PYTHON or PATH.' }
     $env:PORT = [string]$Port
     if ($WithAI -and -not $env:OPENAI_API_KEY) {
         $worknoteSecret = Read-Host 'OpenAI API key (not displayed)' -AsSecureString

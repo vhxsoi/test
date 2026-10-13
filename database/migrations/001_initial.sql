@@ -1,6 +1,7 @@
--- Target local storage schema; not yet wired to the application.
+-- Applied by the Python worker when initializing an empty local database.
 -- Service code must enable foreign_keys and validate real calendar dates and URLs.
 PRAGMA foreign_keys = ON;
+BEGIN;
 
 CREATE TABLE schema_migrations (
   version TEXT PRIMARY KEY,
@@ -131,3 +132,4 @@ LEFT JOIN route_nodes r ON r.node_id = w.id
 LEFT JOIN admin_nodes a ON a.node_id = w.id;
 
 INSERT INTO schema_migrations(version) VALUES ('001_initial');
+COMMIT;

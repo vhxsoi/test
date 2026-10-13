@@ -1,0 +1,252 @@
+{
+  "routes": [
+    {
+      "id": "RT-001",
+      "codes": [
+        "IND"
+      ],
+      "name": "인도 정기 항로",
+      "region": "인도",
+      "group": "서남아",
+      "type": "joint",
+      "start": "2024-03",
+      "end": "",
+      "endReason": "",
+      "partners": [
+        "OWN",
+        "P01",
+        "P02"
+      ],
+      "contract": "CT-001",
+      "cycle": {
+        "kind": "ships",
+        "count": 6,
+        "base": "2026-09-07"
+      },
+      "remark": "6척 투입을 6주 주기로 환산. 실제 운항 일정에 따라 다음 예정일을 조정합니다.",
+      "history": [
+        {
+          "date": "2026-09-07",
+          "cycle": "제22차 사이클",
+          "items": [
+            "선복료",
+            "BSA"
+          ],
+          "remark": "정기 협의 결과 반영"
+        },
+        {
+          "date": "2026-07-27",
+          "cycle": "제21차 사이클",
+          "items": [
+            "선박변경"
+          ],
+          "remark": "투입 선박 변경 확인"
+        }
+      ]
+    },
+    {
+      "id": "RT-002",
+      "codes": [
+        "VNS",
+        "THS"
+      ],
+      "name": "베트남·태국 통합 항로",
+      "region": "베트남 · 태국",
+      "group": "동남아",
+      "type": "joint",
+      "start": "2025-01",
+      "end": "",
+      "endReason": "",
+      "partners": [
+        "OWN",
+        "P01"
+      ],
+      "contract": "CT-002",
+      "cycle": {
+        "kind": "monthly",
+        "base": "2026-10-01"
+      },
+      "remark": "두 항로 코드를 하나의 한글 표시명으로 통합합니다.",
+      "history": [
+        {
+          "date": "2026-10-01",
+          "cycle": "2026년 10월 적용분",
+          "items": [
+            "선복료",
+            "surcharge"
+          ],
+          "remark": "월별 정기 업데이트"
+        }
+      ]
+    },
+    {
+      "id": "RT-003",
+      "codes": [
+        "JPN",
+        "CHN"
+      ],
+      "name": "일본·중국 교환 항로",
+      "region": "일본 · 중국",
+      "group": "동아시아",
+      "type": "exchange",
+      "start": "2024-06",
+      "end": "",
+      "endReason": "",
+      "partners": [
+        "OWN",
+        "P02"
+      ],
+      "contract": "CT-003",
+      "cycle": {
+        "kind": "quarterly",
+        "base": "2026-10-01"
+      },
+      "remark": "서로 다른 항로의 물량을 교환합니다. 비율·추가 구매 조건은 연결 계약에서 관리합니다.",
+      "history": [
+        {
+          "date": "2026-10-01",
+          "cycle": "2026년 4분기 적용분",
+          "items": [
+            "BSA",
+            "max unit"
+          ],
+          "remark": "교환 물량 조정 협의 반영"
+        }
+      ]
+    },
+    {
+      "id": "RT-004",
+      "codes": [
+        "HPH"
+      ],
+      "name": "하이퐁 구매 항로",
+      "region": "하이퐁",
+      "group": "동남아",
+      "type": "buy",
+      "start": "2025-08",
+      "end": "",
+      "endReason": "",
+      "partners": [
+        "OWN",
+        "P01"
+      ],
+      "contract": "CT-004",
+      "cycle": {
+        "kind": "ships",
+        "count": 4,
+        "base": "2026-09-14"
+      },
+      "remark": "4척 기준 4주 주기 추정. 예정일 경과 후 실제 업데이트 여부 확인이 필요합니다.",
+      "history": [
+        {
+          "date": "2026-09-14",
+          "cycle": "제14차 사이클",
+          "items": [
+            "Draft",
+            "rotation"
+          ],
+          "remark": "기항 순서 및 운항 기준 변경"
+        }
+      ]
+    },
+    {
+      "id": "RT-005",
+      "codes": [
+        "USA"
+      ],
+      "name": "미주 판매 항로",
+      "region": "미주",
+      "group": "미주",
+      "type": "sell",
+      "start": "2023-11",
+      "end": "",
+      "endReason": "",
+      "partners": [
+        "OWN",
+        "P02"
+      ],
+      "contract": "CT-005",
+      "cycle": {
+        "kind": "annual",
+        "base": "2025-11-01"
+      },
+      "remark": "연간 협의 기준. 상세 계산식은 Contract node에서 확인합니다.",
+      "history": [
+        {
+          "date": "2025-11-01",
+          "cycle": "2025–2026 연간 적용분",
+          "items": [
+            "선복료"
+          ],
+          "remark": "연간 조건 갱신"
+        }
+      ]
+    },
+    {
+      "id": "RT-006",
+      "codes": [
+        "IND"
+      ],
+      "name": "인도 정기 항로",
+      "region": "인도",
+      "group": "서남아",
+      "type": "buy",
+      "start": "2022-03",
+      "end": "2026-08",
+      "endReason": "미갱신",
+      "partners": [
+        "OWN",
+        "P02"
+      ],
+      "contract": "CT-006",
+      "cycle": {
+        "kind": "monthly",
+        "base": "2026-08-01"
+      },
+      "remark": "RT-001과 항로 코드는 같지만 별도 계약입니다. 종료된 기록으로 보관합니다.",
+      "history": [
+        {
+          "date": "2026-08-01",
+          "cycle": "2026년 8월 적용분",
+          "items": [
+            "선복료"
+          ],
+          "remark": "최종 적용분 확인"
+        }
+      ]
+    }
+  ],
+  "admins": [
+    {
+      "id": "AD-001",
+      "name": "월간 실적 자료 취합",
+      "type": "서무 업무(기타)",
+      "recent": "2026-09-15",
+      "cycle": {
+        "kind": "monthly"
+      },
+      "guide": "1. 부서별 실적 자료를 수집합니다.\n2. 누락 항목과 합계 일치 여부를 확인합니다.\n3. 정해진 양식에 취합하고 담당자 검토를 요청합니다.\n4. 검토한 결과를 지정된 보관 위치에 저장합니다."
+    },
+    {
+      "id": "AD-002",
+      "name": "주간 회의록 정리",
+      "type": "서무 업무(기타)",
+      "recent": "2026-10-05",
+      "cycle": {
+        "kind": "weeks",
+        "count": 1
+      },
+      "guide": "1. 승인된 회의 메모를 확인합니다.\n2. 결정 사항, 담당자와 후속 업무를 구분합니다.\n3. 외부 전송 가능한 내용만 마법사에 전달합니다.\n4. 요약 결과를 검토한 뒤 공유합니다."
+    },
+    {
+      "id": "AD-003",
+      "name": "분기 문서 보관 점검",
+      "type": "서무 업무(기타)",
+      "recent": "2026-07-13",
+      "cycle": {
+        "kind": "quarterly"
+      },
+      "guide": "1. 보관 대상 문서 목록과 접근 권한을 확인합니다.\n2. 중복·누락 문서를 정리 대상으로 분류합니다.\n3. 삭제 또는 이동 전 담당자의 승인을 받습니다.\n4. 점검 결과를 기록합니다."
+    }
+  ]
+}

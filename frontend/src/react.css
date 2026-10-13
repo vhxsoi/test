@@ -1,0 +1,151 @@
+.react-backdrop {
+  position: fixed;
+  inset: 0;
+  background: #1d332966;
+  backdrop-filter: blur(3px);
+  z-index: 80;
+}
+.react-dialog {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  z-index: 90;
+  overflow: auto;
+}
+.react-dialog textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 12px;
+  border: 1px solid #dce5df;
+  border-radius: 7px;
+  padding: 10px;
+  line-height: 1.8;
+  resize: vertical;
+  margin-top: 8px;
+}
+.react-dialog form {
+  margin-top: 20px;
+}
+.react-dialog form > button {
+  margin-top: 10px;
+}
+.card-open {
+  width: 100%;
+  text-align: left;
+  display: block;
+  padding: 0;
+}
+.card-open .route-name h2 {
+  font-size: 24px;
+}
+.form-error {
+  color: #a4654f;
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 12px 0;
+}
+.detail-section {
+  margin: 20px 0;
+  border: 1px solid #e5ece3;
+  border-radius: 8px;
+  padding: 13px;
+  font-size: 12px;
+}
+.detail-section summary {
+  cursor: pointer;
+  color: #709275;
+}
+.contract-reference {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  gap: 15px;
+  font-size: 11px;
+}
+.contract-reference a {
+  color: #51835a;
+  font-size: 10px;
+}
+.empty-board {
+  text-align: center;
+  padding: 45px 25px;
+  color: #78927d;
+}
+.empty-board h2 {
+  font-size: 20px;
+}
+.empty-board p {
+  font-size: 12px;
+}
+.empty-board button {
+  margin: 20px 10px 0;
+  font-size: 12px;
+}
+.block-tools select {
+  width: 54px;
+  border: 0;
+  border-radius: 3px;
+  font-size: 9px;
+  color: #90a48c;
+  background: #f1f5ee;
+}
+.notion-document .block-tools {
+  left: -140px;
+}
+.legacy-list {
+  max-height: 400px;
+  overflow: auto;
+}
+.legacy-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  padding: 10px 0;
+}
+.legacy-list input {
+  width: 16px;
+  height: 16px;
+  accent-color: #6c9975;
+}
+.notion-blocks .block-prefix:empty {
+  display: none;
+}
+.wizard-grid h2 {
+  font-size: 15px;
+  margin-bottom: 23px;
+}
+.block-read {
+  white-space: pre-wrap;
+}
+@media (max-width: 1100px) {
+  .notion-document .block-tools {
+    left: -53px;
+    flex-wrap: wrap;
+    width: 50px;
+  }
+  .block-tools select {
+    width: 48px;
+  }
+}
+@media (max-width: 720px) {
+  .notion-document .block-tools {
+    left: -32px;
+    width: 29px;
+  }
+  .block-tools select {
+    width: 29px;
+    font-size: 8px;
+  }
+  .react-dialog {
+    max-height: 90vh;
+  }
+  .card-open .route-name h2 {
+    font-size: 23px;
+  }
+  .contract-reference {
+    flex-wrap: wrap;
+  }
+}

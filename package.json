@@ -1,22 +1,32 @@
 {
   "name": "worknote",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "npm start",
     "start": "node server.js",
     "check": "node scripts/check.js",
-    "test": "node --test tests/*.test.js",
+    "test": "npm run test:node && npm run test:python",
     "config:check": "node scripts/check-config.js",
     "db:check": "node --test tests/schema.test.js",
-    "verify": "npm run check && npm run config:check && npm test"
+    "verify": "npm run build && npm run check && npm run config:check && npm test",
+    "build": "vite build",
+    "prestart": "npm run build",
+    "ui:watch": "vite build --watch",
+    "test:node": "node --test tests/*.test.js",
+    "test:python": "node scripts/test-python.js"
   },
   "dependencies": {
-    "marked": "^18.1.1"
+    "marked": "^18.1.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   },
   "description": "Local personal route and administrative work manager with block manuals and reviewed AI drafts",
   "engines": {
     "node": ">=24.19.0 <25"
+  },
+  "devDependencies": {
+    "vite": "^8.3.4"
   }
 }

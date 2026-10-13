@@ -1,0 +1,6 @@
+[project]
+name = "worknote-domain"
+version = "0.2.0"
+description = "Local Worknote business logic and SQLite worker"
+requires-python = ">=3.10"
+dependencies = []

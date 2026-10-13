@@ -1,6 +1,6 @@
 # 데이터 모델
 
-[초기 SQL](../database/migrations/001_initial.sql)은 저장 계층을 구현하기 위한 실행 가능한 스키마다. 현재 앱은 이 DB에 연결되지 않았다. 기밀 계약 원문을 담는 테이블은 없다.
+[초기 SQL](../database/migrations/001_initial.sql)은 Python 저장 계층이 빈 로컬 DB에 실제 적용하는 스키마다. 기존 DB는 버전을 확인하며 초기화로 덮어쓰지 않는다. 기밀 계약 원문을 담는 테이블은 없다.
 
 ```mermaid
 erDiagram

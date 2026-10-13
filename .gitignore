@@ -16,3 +16,7 @@ node_modules/
 /backups/
 /artifacts/
 coverage/
+dist/
+__pycache__/
+*.py[cod]
+.venv/
