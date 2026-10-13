@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "app": {"name": "Worknote", "locale": "ko-KR", "timeZone": "Asia/Seoul"},
+  "server": {"host": "127.0.0.1", "port": 3000},
+  "storagePlan": {
+    "driver": "sqlite",
+    "windowsRoot": "%LOCALAPPDATA%\\Worknote",
+    "databaseRelativePath": "data/worknote.db",
+    "backupRelativePath": "backups",
+    "runtimeIntegrated": false
+  },
+  "board": {
+    "sort": "due_date_ascending",
+    "missingDueDate": "last",
+    "tieBreaker": "id_ascending",
+    "warningDays": 7
+  },
+  "cycles": {"calendarTypes": ["monthly", "quarterly", "annual"], "weeksPerVessel": 1},
+  "contracts": {"storeDocumentBody": false, "referenceSchemes": ["https"], "autoFetchReference": false},
+  "manual": {"format": "blocks", "maxCharacters": 50000, "maxBlocks": 500},
+  "ai": {
+    "provider": "openai",
+    "model": "gpt-4.1-mini",
+    "requiresConsent": true,
+    "storeResponse": false,
+    "maxSourceCharacters": 12000,
+    "timeoutMs": 60000,
+    "concurrency": 1,
+    "autoApply": false
+  },
+  "futureIntegrations": {"gmail": false, "notionSync": false}
+}

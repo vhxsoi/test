@@ -1,0 +1,18 @@
+node_modules/
+.env
+.env.*
+*.log
+!.env.example
+# Runtime data, confidential documents, keys, and backups belong outside this checkout.
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.pem
+*.key
+*.pfx
+/data/
+/backups/
+/artifacts/
+coverage/

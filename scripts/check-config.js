@@ -1,0 +1,18 @@
+import {readFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+const config=JSON.parse(readFileSync(new URL('../config/worknote.defaults.json',import.meta.url),'utf8'));
+assert.equal(config.schemaVersion,1);
+assert.equal(config.server.host,'127.0.0.1','Local-only server binding is required');
+assert.ok(Number.isInteger(config.server.port)&&config.server.port>=1024&&config.server.port<=65535);
+assert.equal(config.storagePlan.driver,'sqlite');
+assert.equal(config.storagePlan.runtimeIntegrated,false,'Do not claim runtime DB integration until implemented');
+assert.equal(config.board.sort,'due_date_ascending');assert.equal(config.board.missingDueDate,'last');
+assert.equal(config.contracts.storeDocumentBody,false);assert.equal(config.contracts.autoFetchReference,false);
+assert.deepEqual(config.contracts.referenceSchemes,['https']);
+assert.equal(config.ai.requiresConsent,true);assert.equal(config.ai.autoApply,false);assert.equal(config.ai.storeResponse,false);
+assert.ok(config.ai.maxSourceCharacters>0&&config.ai.maxSourceCharacters<=12000);
+assert.ok(config.manual.maxCharacters>0&&config.manual.maxCharacters<=50000);
+assert.equal(config.cycles.weeksPerVessel,1);
+assert.doesNotThrow(()=>new Intl.DateTimeFormat(config.app.locale,{timeZone:config.app.timeZone}));
+assert.equal(/api[_-]?key|token|password|secret/i.test(JSON.stringify(config)),false,'Do not store credential fields or values in default configuration');
+console.log('Default configuration validated; it is a target definition, not applied runtime settings.');
