@@ -118,6 +118,15 @@ def append_history(db, node_id, payload):
 
 def list_nodes(db):
     records = []
+    # Optional import metadata preserves Excel's original month * 30 schedule.
+    # Regular nodes keep their existing calendar/vessel rules.
+    imported_schedules = {}
+    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='imported_route_schedules'").fetchone():
+        for schedule in db.execute('SELECT route_id, period_raw, interval_days FROM imported_route_schedules'):
+            days = schedule['interval_days']
+            if not isinstance(days, int) or not 1 <= days <= 366000:
+                raise DomainError('가져온 엑셀 주기 정보가 올바르지 않습니다. 원본 DB를 보존하고 확인하세요.', 409)
+            imported_schedules[schedule['route_id']] = schedule
     for row in db.execute('SELECT * FROM work_node_summary'):
         parent = db.execute('SELECT updated_at FROM work_nodes WHERE id=?', (row['id'],)).fetchone()
         cycle = {'kind':'ships' if row['cycle_type']=='vessels' else row['cycle_type'] or 'none'}
@@ -134,7 +143,12 @@ def list_nodes(db):
                 history.append({'id':h['id'],'date':h['update_date'],'cycle':h['cycle'],'remark':h['remark'],'items':[x[0] for x in db.execute('SELECT item FROM history_items WHERE history_id=? ORDER BY item', (h['id'],))]})
             contracts = [dict(c) for c in db.execute('SELECT c.* FROM contract_nodes c JOIN route_contracts rc ON c.id=rc.contract_id WHERE rc.route_id=? ORDER BY c.id', (row['id'],))]
             record.update(type=data['contract_type'],region=data['region'] or '미분류',group=data['group_name'] or '미분류',start=data['start_month'] or '',end=data['terminate_month'] or '',endReason=data['termination_reason'] or '',remark=data['remark'],codes=[x[0] for x in db.execute('SELECT code FROM route_codes WHERE route_id=? ORDER BY position',(row['id'],))],partners=[x[0] for x in db.execute('SELECT DISTINCT partner_code FROM route_partners WHERE route_id=? ORDER BY partner_code',(row['id'],))],contracts=contracts,contract=contracts[0]['id'] if contracts else '',history=history,ended=bool(data['terminate_month']))
-        record['due'] = due_date(record['recent'],row['cycle_type'],row['cycle_count'],record['ended'])
+        effective_kind, effective_count = row['cycle_type'], row['cycle_count']
+        if row['kind'] == 'route' and not effective_kind and row['id'] in imported_schedules:
+            imported = imported_schedules[row['id']]
+            effective_kind, effective_count = 'legacy_days', imported['interval_days']
+            record['cycle'] = {'kind':effective_kind,'count':effective_count,'source':'excel','raw':imported['period_raw']}
+        record['due'] = due_date(record['recent'],effective_kind,effective_count,record['ended'])
         record.update(deadline_state(record['due'],record['ended']))
         records.append(record)
     return sorted(records,key=lambda n:(n['due'] is None,n['due'] or '',n['id']))

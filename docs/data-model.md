@@ -31,3 +31,5 @@ erDiagram
 기한과 D-day는 파생 값이며 DB에 고정 저장하지 않는다. 실제 날짜 유효성·블록 형식·URL·공백·교환 코드 개수·소유 종류는 API에서도 검증한다. SQL의 형식 검사는 이를 대체하지 않는다. 앱이 하나의 트랜잭션에서 공통 노드와 종류별 레코드를 함께 생성해야 한다.
 
 스키마는 SQLite 외래 키와 CHECK로 기본 관계를 제한한다. 테이블 데이터 삭제는 RESTRICT로 보호하며 실제 삭제·보관 정책은 서비스에서 명시한다. 시각은 UTC, 계약 시작·종료는 초기 UI에 맞춰 월 단위, 업데이트 날짜는 일 단위로 기록한다.
+
+검토한 Excel 수입 파일에는 [선택적 출처 테이블](../database/imports/excel_sources.sql)을 추가할 수 있다. `imported_route_schedules`는 원문 주기와 계산된 일수를 보존한다. 공통 노드에 달력/선박 주기가 없으면 Python이 이 테이블의 일수를 읽어 원래 Excel 기한을 계산한다. `imported_page_sources`는 기본 페이지와 흡수된 BSA 페이지를 같은 Route ID에 연결하며, `imported_history_sources`는 공유 History의 원본 행을 보존한다. 계약 본문·첨부는 저장하지 않는다. 실제 페이지 본문 대신 원본 링크와 검토된 메타데이터를 담은 매뉴얼 페이지를 저장할 수 있다.

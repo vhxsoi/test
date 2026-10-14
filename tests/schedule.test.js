@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {dueDate,dueState,dDayLabel} from '../public/schedule.js';
+import {dueDate,dueState,dDayLabel,cycleLabel} from '../public/schedule.js';
 import {validateDraft,templates} from '../lib/wizard.js';
 test('monthly, quarterly and annual deadlines preserve calendar boundaries',()=>{
   assert.equal(dueDate('2026-01-31',{kind:'monthly'}),'2026-02-28');
@@ -14,6 +14,13 @@ test('ship/weekly deadlines and D-day distinguish upcoming, today and overdue',(
   assert.equal(dDayLabel(dueState('2026-10-15','2026-10-13').days),'D-2');
   assert.equal(dDayLabel(dueState('2026-10-13','2026-10-13').days),'D-day');
   assert.equal(dDayLabel(dueState('2026-10-12','2026-10-13').days),'D+1');
+});
+test('imported Excel day intervals preserve fractional month conversion without calendar rounding',()=>{
+  assert.equal(dueDate('2026-01-31',{kind:'legacy_days',count:30}),'2026-03-02');
+  assert.equal(dueDate('2026-09-07',{kind:'legacy_days',count:36}),'2026-10-13');
+  assert.equal(cycleLabel({kind:'legacy_days',count:36}),'엑셀 36일 주기');
+  assert.equal(dueDate('2026-01-31',{kind:'legacy_days',count:366001}),null);
+  assert.equal(dueDate('2026-01-31',{kind:'legacy_days'}),null);
 });
 test('missing/invalid dates or cycles and terminated contracts do not invent deadlines',()=>{
   for(const date of [null,'','2026-02-30','2026-02','2026-13-01'])assert.equal(dueDate(date,{kind:'monthly'}),null);

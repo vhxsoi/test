@@ -15,6 +15,10 @@ class DomainTests(unittest.TestCase):
         self.assertEqual(deadline_state('2026-10-12',reference='2026-10-13')['days'],-1)
     def test_invalid_page(self):
         with self.assertRaises(DomainError):validate_document({'title':'x','icon':'📒','blocks':[{'id':'x','type':'script','text':'bad','checked':False,'href':''}]})
+    def test_imported_legacy_days_differ_from_calendar_months(self):
+        self.assertEqual(due_date('2026-01-31','legacy_days',30),'2026-03-02')
+        self.assertEqual(due_date('2026-09-07','legacy_days',36),'2026-10-13')
+        for count in [0,True,1.2,366001]:self.assertIsNone(due_date('2026-01-31','legacy_days',count))
 
 class StorageTests(unittest.TestCase):
     def setUp(self):
@@ -52,5 +56,23 @@ class StorageTests(unittest.TestCase):
         with self.assertRaises(DomainError):handle(self.db,'demo',{})
         with self.assertRaises(DomainError):handle(self.db,'contract',{'route_id':'RT-001','id':'CT-SEC','notebook_url':'http://example.com'})
         self.assertIsNone(self.db.execute("SELECT id FROM contract_nodes WHERE id='CT-SEC'").fetchone())
+    def test_imported_schedule_shared_history_manual_and_termination(self):
+        self.create()
+        root=Path(__file__).resolve().parent.parent
+        self.db.executescript((root/'database/imports/excel_sources.sql').read_text(encoding='utf-8'))
+        self.db.execute("UPDATE work_nodes SET cycle_type=NULL,cycle_count=NULL WHERE id='RT-001'")
+        self.db.execute("INSERT INTO imported_route_schedules(route_id,period_raw,interval_days) VALUES ('RT-001','1.2 Month',36)")
+        self.db.commit()
+        before=handle(self.db,'list',{})['nodes'][0]
+        self.assertEqual(before['cycle'],{'kind':'legacy_days','count':36,'source':'excel','raw':'1.2 Month'})
+        self.assertEqual(before['due'],'2026-11-10')
+        handle(self.db,'manual_save',{'id':'RT-001','document':{'title':'절차','icon':'📒','blocks':[]},'expected_revision':0})
+        self.assertEqual(handle(self.db,'list',{})['nodes'][0]['due'],before['due'])
+        handle(self.db,'history',{'id':'RT-001','date':'2026-10-12','cycle':'다음 회차','items':['BSA']})
+        current=handle(self.db,'list',{})['nodes'][0]
+        self.assertEqual(current['due'],'2026-11-17')
+        self.assertEqual(len(current['history']),2)
+        handle(self.db,'update',{'id':'RT-001','end':'2027-01','expectedUpdatedAt':current['updatedAt']})
+        self.assertIsNone(handle(self.db,'list',{})['nodes'][0]['due'])
 
 if __name__=='__main__':unittest.main()

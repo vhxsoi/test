@@ -71,6 +71,10 @@ def due_date(recent, kind, count=None, ended=False):
         return None
     try:
         start = date.fromisoformat(recent)
+        if kind == 'legacy_days':
+            if isinstance(count, bool) or not isinstance(count, int) or not 1 <= count <= 366000:
+                return None
+            return (start + timedelta(days=count)).isoformat()
         if kind in ('ships', 'vessels', 'weeks'):
             if not isinstance(count, int) or count < 1:
                 return None
